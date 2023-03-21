@@ -1,9 +1,9 @@
-package com.example.apiControleValidade.domain.enuns;
+package com.apiControleValidade.domain.enuns;
 
 
 
 public enum Perfil {
-	ADMIN(0, "ROLE_ADMIN"), CLIENTE(1, "ROLE_CLIENTE"), TECNICO(2, "ROLE_TECNICO");
+	ADMIN(0, "ROLE_ADMIN"), REPOSITOR(1, "ROLE_REPOSITOR");
 
 	private Integer codigo;
 	private String descricao;
