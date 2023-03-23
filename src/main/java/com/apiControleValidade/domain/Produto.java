@@ -1,25 +1,47 @@
 package com.apiControleValidade.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Produto {
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class Produto implements Serializable{	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	private Long codigoBarra;
 	private String nome;
+	
+	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate dataCriação = LocalDate.now();
+	
+	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate dataVencimento;
 	private String prioridade;
 	
-	private Produto produto;
+	@ManyToOne
+	@JoinColumn(name = "repositor_id")
+	private Repositor repositor;
 
 	public Produto() {
 		super();
 	}
 
+	
+
 	public Produto(Integer id, Long codigoBarra, String nome, LocalDate dataCriação, LocalDate dataVencimento,
-			String prioridade, Produto produto) {
+			String prioridade, Repositor repositor) {
 		super();
 		Id = id;
 		this.codigoBarra = codigoBarra;
@@ -27,8 +49,10 @@ public class Produto {
 		this.dataCriação = dataCriação;
 		this.dataVencimento = dataVencimento;
 		this.prioridade = prioridade;
-		this.produto = produto;
+		this.repositor = repositor;
 	}
+
+
 
 	public Integer getId() {
 		return Id;
@@ -78,13 +102,17 @@ public class Produto {
 		this.prioridade = prioridade;
 	}
 
-	public Produto getProduto() {
-		return produto;
+
+	public Repositor getRepositor() {
+		return repositor;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+
+	public void setRepositor(Repositor repositor) {
+		this.repositor = repositor;
 	}
+
+
 
 	@Override
 	public int hashCode() {
