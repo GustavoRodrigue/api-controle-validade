@@ -2,11 +2,17 @@ package com.apiControleValidade.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import com.apiControleValidade.domain.enuns.Prioridade;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +34,8 @@ public class Produto implements Serializable{
 	
 	@JsonFormat(pattern = "dd/mm/yyyy")
 	private LocalDate dataVencimento;
-	private String prioridade;
+	
+	private Prioridade prioridade;
 	
 	@ManyToOne
 	@JoinColumn(name = "repositor_id")
@@ -38,19 +45,21 @@ public class Produto implements Serializable{
 		super();
 	}
 
-	
 
-	public Produto(Integer id, Long codigoBarra, String nome, LocalDate dataCriação, LocalDate dataVencimento,
-			String prioridade, Repositor repositor) {
+	public Produto(Integer id, Long codigoBarra, String nome, LocalDate dataVencimento,
+			Prioridade prioridade, Repositor repositor) {
 		super();
 		Id = id;
 		this.codigoBarra = codigoBarra;
 		this.nome = nome;
-		this.dataCriação = dataCriação;
 		this.dataVencimento = dataVencimento;
 		this.prioridade = prioridade;
 		this.repositor = repositor;
 	}
+
+
+
+
 
 
 
@@ -94,11 +103,12 @@ public class Produto implements Serializable{
 		this.dataVencimento = dataVencimento;
 	}
 
-	public String getPrioridade() {
+	public Prioridade getPrioridade() {
 		return prioridade;
 	}
 
-	public void setPrioridade(String prioridade) {
+
+	public void setPrioridade(Prioridade prioridade) {
 		this.prioridade = prioridade;
 	}
 

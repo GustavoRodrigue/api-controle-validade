@@ -20,8 +20,8 @@ public class Repositor extends Pessoa{
 		addPerfil(Perfil.REPOSITOR);
 	}
 
-	public Repositor(Integer id, String nome, String email, String senha) {
-		super(id, nome, email, senha);
+	public Repositor(Integer id, String nome, String matricula, String senha) {
+		super(id, nome, matricula, senha);
 		addPerfil(Perfil.REPOSITOR);
 	}
 

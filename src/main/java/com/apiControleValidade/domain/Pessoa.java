@@ -22,7 +22,7 @@ import jakarta.persistence.Id;
 
 
 
-@Entity(name = "pessoa")
+@Entity(name = "repositor")
 public abstract class Pessoa implements Serializable{	
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +32,7 @@ public abstract class Pessoa implements Serializable{
 	protected String nome;
 	
 	@Column(unique = true)
-	protected String email;
+	protected String matricula;
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
@@ -46,11 +46,11 @@ public abstract class Pessoa implements Serializable{
 		super();
 		addPerfil(Perfil.REPOSITOR);
 	}
-	public Pessoa(Integer id, String nome, String email, String senha) {
+	public Pessoa(Integer id, String nome, String matricula, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.email = email;
+		this.matricula = matricula;
 		this.senha = senha;
 		addPerfil(Perfil.REPOSITOR);
 	}
@@ -66,11 +66,11 @@ public abstract class Pessoa implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEmail() {
-		return email;
+	public String getMatricula() {
+		return matricula;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String matricula) {
+		this.matricula = matricula;
 	}
 	public String getSenha() {
 		return senha;
@@ -85,10 +85,9 @@ public abstract class Pessoa implements Serializable{
 	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getCodigo());
 	}
-	
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id, matricula);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -99,8 +98,10 @@ public abstract class Pessoa implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(id, other.id) && Objects.equals(matricula, other.matricula);
 	}
+	
+	
 	
 	
 	
